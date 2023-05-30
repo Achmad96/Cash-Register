@@ -26,6 +26,7 @@ fun main() {
     } while (menusChoose != "confirm")
     println("Prices: ${prices.toString().toCurrencyFormat()}")
 }
+
 fun String.toCurrencyFormat(): String {
     val localeID = Locale("in", "ID")
     val doubleValue = this.toDoubleOrNull() ?: return this
