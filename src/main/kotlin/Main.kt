@@ -1,14 +1,18 @@
 import java.text.NumberFormat
 import java.util.*
 
-const val APPLICATION = "KOTLIN-APP"
-const val VERSION = 1.0
+const val APPLICATION = "CASH-REGISTER"
+const val VERSION = 1.1
 fun main() {
     println("$APPLICATION: $VERSION")
     val foodMenus = arrayOf(
         arrayOf("fried chicken", "burger", "french fries"),
         arrayOf(25000, 18000, 20000)
     )
+    print("Your money: ")
+    val selfMoney = readln()
+    if (selfMoney.toIntOrNull() == null) return
+    var money = selfMoney.toInt()
     var prices = 0
     do {
         for ( i in 0..foodMenus.size){
@@ -17,14 +21,19 @@ fun main() {
         }
         println("'confirm' to confirm your order.")
         print(": ")
-        val menusChoose = readlnOrNull().toString().lowercase()
-        if (menusChoose in foodMenus[0]) {
+        var menusChoose = readlnOrNull().toString().lowercase()
+        if (menusChoose in foodMenus[0] && money >= foodMenus[1][foodMenus[0].indexOf(menusChoose)].toString().toInt()) {
             prices += foodMenus[1][foodMenus[0].indexOf(menusChoose)].toString().toInt()
+            money -= foodMenus[1][foodMenus[0].indexOf(menusChoose)].toString().toInt()
+        } else if (menusChoose in foodMenus[0] && money < foodMenus[1][foodMenus[0].indexOf(menusChoose)].toString().toInt()){
+            println("Sorry, your money doesn't enough.")
+            menusChoose = "confirm"
         } else if (menusChoose !in foodMenus[0] && menusChoose != "confirm"){
             println("Sorry, your order is not in the list menu.")
         }
     } while (menusChoose != "confirm")
     println("Prices: ${prices.toString().toCurrencyFormat()}")
+    println("Your change: ${money.toString().toCurrencyFormat()}")
 }
 
 fun String.toCurrencyFormat(): String {
