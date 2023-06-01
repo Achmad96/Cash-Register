@@ -17,7 +17,10 @@ fun main() {
     do {
         for ( i in 0..foodMenus.size){
             println("${i+1}. ${(foodMenus[0][i].toString()
-                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })} = ${foodMenus[1][i].toString().toCurrencyFormat()}")
+                .replaceFirstChar { 
+                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) 
+                    else it.toString() 
+                })} = ${foodMenus[1][i].toString().toCurrencyFormat()}")
         }
         println("'confirm' to confirm your order.")
         print(": ")
